@@ -36,11 +36,17 @@ jobs:
           chcp 65001
           jar --create --file MyApp.jar --main-class Main -C out .
 
+      - name: 准备干净的 input 目录
+        shell: cmd
+        run: |
+          mkdir input
+          copy MyApp.jar input\
+
       - name: jpackage 生成带图标的自包含 EXE
         shell: cmd
         run: |
           chcp 65001
-          jpackage --type app-image --name RandomPicker --input . --main-jar MyApp.jar --main-class Main --icon tubiao.ico --dest output
+          jpackage --type app-image --name RandomPicker --input input --main-jar MyApp.jar --main-class Main --icon tubiao.ico --dest output
 
       - name: 压缩输出
         shell: cmd
