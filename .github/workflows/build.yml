@@ -27,16 +27,19 @@ jobs:
       - name: 编译 Java
         shell: cmd
         run: |
-          javac -d out Main.java
+          chcp 65001
+          javac -encoding UTF-8 -d out Main.java
 
       - name: 打包 JAR
         shell: cmd
         run: |
+          chcp 65001
           jar --create --file MyApp.jar --main-class Main -C out .
 
       - name: jpackage 生成带图标的自包含 EXE
         shell: cmd
         run: |
+          chcp 65001
           jpackage --type app-image --name RandomPicker --input . --main-jar MyApp.jar --main-class Main --icon tubiao.ico --dest output
 
       - name: 压缩输出
